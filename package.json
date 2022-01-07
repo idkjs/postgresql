@@ -3,7 +3,7 @@
   "version": "9.6.16",
   "description": "PostgreSQL packaged for Esy",
   "license": "PostgreSQL Licence",
-  "source": "https://ftp.postgresql.org/pub/source/v9.6.16/postgresql-9.6.16.tar.gz#911d4efc0c428875c1928f98c72e426d22231e59",
+  "source": "https://ftp.postgresql.org/pub/source/v14.1/postgresql-14.1.tar.gz.tar#HEAD",
   "override": {
     "buildEnv": {
       "CFLAGS": "-I#{esy-openssl.install / 'include'} $CFLAGS",
