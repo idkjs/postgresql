@@ -1,17 +1,16 @@
 {
   "name": "postgresql",
-  "version": "9.6.16",
+  "version": "13.0.0",
   "description": "PostgreSQL packaged for Esy",
   "license": "PostgreSQL Licence",
-  "source": "https://ftp.postgresql.org/pub/source/v14.1/postgresql-14.1.tar.gz.tar#HEAD",
+  "source": "https://ftp.postgresql.org/pub/source/v14.0/postgresql-14.0.tar.gz#0a455b8d61d8fc5a7d1fdc152667f9ba1fd27fda",
   "override": {
     "buildEnv": {
-      "CFLAGS": "-I#{esy-openssl.install / 'include'} $CFLAGS",
-      "LDFLAGS": "-L#{esy-openssl.lib} -lcrypto $LDFLAGS"
+      "CFLAGS": "-I#{@reason-native-web/esy-openssl.install / 'include'} $CFLAGS",
+      "LDFLAGS": "-L#{@reason-native-web/esy-openssl.lib} -lcrypto $LDFLAGS"
     },
     "build": [
-      "find ./ -exec touch -t 200905010101 {} +",
-      "./configure #{os == 'windows' ? '--host x86_64-w64-mingw32': '' } --prefix=$cur__install --with-openssl --without-readline --disable-debug --enable-thread-safety",
+      "./configure #{os == 'windows' ? '--host x86_64-w64-mingw32': '' } --prefix=$cur__install --with-openssl --without-readline --without-ldap --disable-debug --enable-thread-safety --libdir=#{self.lib}",
       "make"
     ],
     "install": "make install",
@@ -23,7 +22,7 @@
       },
       "LDFLAGS": {
         "scope": "global",
-        "val": "-L#{self.lib} -lpq"
+        "val": "-L#{self.lib} -lpq $LDFLAGS"
       },
       "CPPFLAGS": {
         "scope": "global",
@@ -48,7 +47,7 @@
     },
     "dependencies": {
       "esy-zlib": "esy-packages/esy-zlib",
-      "esy-openssl": "esy-packages/esy-openssl"
+      "@reason-native-web/esy-openssl": "^1.1.1000"
     }
   }
 }
